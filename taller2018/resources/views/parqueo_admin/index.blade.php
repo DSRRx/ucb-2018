@@ -61,7 +61,23 @@
                                     @endforeach
                                 </td>
                                 <td><option>{{$parqueo['telefono_contacto_1']}}</option><option>{{$parqueo['telefono_contacto_2']}}</option></td>
-                                <td>@if($parqueo['estado_funcionamiento'] == '0') Inactivo @else Activo @endif</td>
+                                <td> @if($parqueo['estado_funcionamiento'] == 'Invalido')
+                                        Invalido
+                                        @else
+                                        @if($parqueo['estado_funcionamiento'] == '1')
+                                        Aprobado
+                                        @else
+                                        @if($parqueo['estado_funcionamiento'] == '2')
+                                        Denegado
+                                        @else
+                                        @if($parqueo['estado_funcionamiento'] == '3')
+                                        Observar
+                                        @endif
+                                        @endif
+
+                                    @endif
+
+                                    @endif</td>
 
                                 <td><a href="{{action('ParqueoController@edit', $parqueo['id_parqueos'])}}" class="btn btn-warning">Editar</a></td>
                                 <td>

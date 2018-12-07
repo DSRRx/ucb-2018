@@ -109,7 +109,7 @@ class ParqueoController extends Controller
         $parqueo->hora_apertura = $request->input('hora_apertura');
         $parqueo->hora_cierre = $request->input('hora_cierre');
         $parqueo->tarifa_hora_normal = $request->input('tarifa_hora_normal');
-        $parqueo->estado_funcionamiento = 'false';
+        $parqueo->estado_funcionamiento = $request->input('estado_funcionamiento');
         $parqueo->cat_estado_parqueo = $request->input('cat_estado_parqueo');
         $parqueo->cat_validacion = $request->input('cat_validacion');
         $parqueo->save();

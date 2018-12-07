@@ -95,7 +95,8 @@
                                     '<br><b>Espacios del parqueo:</b>'+
                                     '<br>'+value.cantidad_p+
                                     '<br><b>Foto de referencia:</b><br>' +
-                                    '<br><img width="200" height="100" src="./images/'+value.foto+'"><br>'
+                                    '<br><img width="200" height="100" src="./images/'+value.foto+'"><br>'+
+                                    '<br><button type="submit" onclick="prueba(\'+value.id_parqueos+\')" class="btn btn-info btn-sm">Reservar</button>'
 
                             }
 
@@ -135,38 +136,40 @@
                         <tbody>
 
                             @foreach($parqueos as $parqueo)
-                            <tr>
-                                <td>{{$parqueo['direccion']}}</td>
-                                <td>{{$parqueo['cantidad_p']}}</td>
-                                <td>{{$parqueo['foto']}}
-                                <br>{{$parqueo['foto_validacion']}}</td>
-                                <td>{{$parqueo['observaciones_validacion']}}</td>
-                                <td><option>{{$parqueo['telefono_contacto_1']}}</option><option>{{$parqueo['telefono_contacto_2']}}</option></td>
+                                @if($parqueo['estado_funcionamiento'] != '1')
+                                <tr>
+                                    <td>{{$parqueo['direccion']}}</td>
+                                    <td>{{$parqueo['cantidad_p']}}</td>
+                                    <td>{{$parqueo['foto']}}
+                                    <br>{{$parqueo['foto_validacion']}}</td>
+                                    <td>{{$parqueo['observaciones_validacion']}}</td>
+                                    <td><option>{{$parqueo['telefono_contacto_1']}}</option><option>{{$parqueo['telefono_contacto_2']}}</option></td>
 
-                                <td>
-                                    @if($parqueo['estado_funcionamiento'] == '0')
-                                        Invalido
-                                    @else
-                                        @if($parqueo['estado_funcionamiento'] == '1')
-                                            Aprobado
+                                    <td>
+                                        @if($parqueo['estado_funcionamiento'] == 'Invalido')
+                                            Invalido
                                         @else
-                                            @if($parqueo['estado_funcionamiento'] == '2')
-                                                Denegado
+                                            @if($parqueo['estado_funcionamiento'] == '1')
+                                                Aprobado
                                             @else
-                                                @if($parqueo['estado_funcionamiento'] == '3')
-                                                    Observar
+                                                @if($parqueo['estado_funcionamiento'] == '2')
+                                                    Denegado
+                                                @else
+                                                    @if($parqueo['estado_funcionamiento'] == '3')
+                                                        Observar
+                                                    @endif
                                                 @endif
+
                                             @endif
 
                                         @endif
 
-                                    @endif
+                                    </td>
 
-                                </td>
+                                    <td><a href="{{action('ValidacionController@edit', $parqueo['id_parqueos'])}}" class="btn btn-warning" )">Editar Validacion</a></td>
 
-                                <td><a href="{{action('ValidacionController@edit', $parqueo['id_parqueos'])}}" class="btn btn-warning" )">Editar Validacion</a></td>
-
-                            </tr>
+                                </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>

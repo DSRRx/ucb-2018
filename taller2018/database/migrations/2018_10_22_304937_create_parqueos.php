@@ -30,11 +30,11 @@ class CreateParqueos extends Migration
             //$table->string('authy_id')->nullable();
             //$table->boolean('verificar')->default(false);
             $table->string('telefono_contacto_2', 45)->nullable();
-            //$table->string('estado_funcionamiento');  consultar para utilizar mas de solo dos estados_funcionamiento
+            $table->string('estado_funcionamiento'); // consultar para utilizar mas de solo dos estados_funcionamiento
             $table->time('hora_apertura');
             $table->time('hora_cierre');
             $table->decimal('tarifa_hora_normal', 10, 7);
-            $table->boolean('estado_funcionamiento');
+            //$table->boolean('estado_funcionamiento');
             $table->unsignedInteger('cat_estado_parqueo')->nullable();
             $table->unsignedInteger('cat_validacion')->nullable();
             $table->string('foto_validacion', 250)->nullable();

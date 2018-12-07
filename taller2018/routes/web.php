@@ -34,8 +34,6 @@ Auth::routes ();
     Route::resource('cliente_busqueda','ClienteController')->middleware('auth');
     Route::get('/lista_reservas','ReservaController@lista_estado');//nueva
     Route::get('mostrar_reserva','ReservaController@edit');//nueva
-    Route::get('parqueos_favoritos','FavoritosController@list');//nueva
-
 
 
 
