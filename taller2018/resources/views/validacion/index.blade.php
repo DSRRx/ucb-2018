@@ -43,6 +43,46 @@
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
+                                    <div class="modal-body ">
+                                        <form role="form">
+                                            <div class="form-group">
+
+                                                <label for="Direccion">Direccion:</label>
+                                                <input type="text" class="form-control" name="direccion" value="">
+
+                                                <label for="Cantidad">Cantidad Vehiculos:</label>
+                                                <input type="text" class="form-control" name="cantidad_p" value="">
+
+                                                <label for="HoraApertura">Hora Apertura:</label>
+                                                <input type="time" class="form-control" name="hora_apertura" value="">
+
+                                                <label for="HoraCierre">Hora Cierre:</label>
+                                                <input type="time" class="form-control" name="hora_cierre" value="">
+
+                                                <label for="Tarifa">Tarifa:</label>
+                                                <input type="text" class="form-control" name="tarifa_hora_normal" value="">
+
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="Nacionalidad">Dias Funcionamiento Parqueo:</label>
+                                                        <label class="checkbox-inline"><input type="checkbox" value="">&nbsp;Lun</label>
+                                                        <label class="checkbox-inline"><input type="checkbox" value="">&nbsp;Mar</label>
+                                                        <label class="checkbox-inline"><input type="checkbox" value="">&nbsp;Mie</label>
+                                                        <label class="checkbox-inline"><input type="checkbox" value="">&nbsp;Jue</label>
+                                                        <label class="checkbox-inline"><input type="checkbox" value="">&nbsp;Vie</label>
+                                                        <label class="checkbox-inline"><input type="checkbox" value="">&nbsp;Sab</label>
+                                                        <label class="checkbox-inline"><input type="checkbox" value="">&nbsp;Dom</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-center">
+                                                <button type="button" class="btn btn-primary my-4">Reservar</button>
+                                                <button type="button" class="btn btn-warning my-4" data-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -96,10 +136,34 @@
                                     '<br>'+value.cantidad_p+
                                     '<br><b>Foto de referencia:</b><br>' +
                                     '<br><img width="200" height="100" src="./images/'+value.foto+'"><br>'+
-                                    '<br><button type="submit" onclick="prueba(\'+value.id_parqueos+\')" class="btn btn-info btn-sm">Reservar</button>'
+                                    '<br><button type="submit" onclick="prueba('+value.id_parqueos+')" class="btn btn-info btn-sm">Reservar Visita</button>'
 
                             }
 
+                        });
+                    });
+
+                    function prueba($id){
+                        var id = $id;
+                        var prueba_r= '{{ route('reservas.edit', ":id") }}';
+                        prueba_r = prueba_r.replace(':id', $id);
+                        document.location.href=prueba_r;
+                    }
+
+                    $(document).ready(function(){
+                        prettyPrint();
+
+                        $('#geocoding_form').submit(function(e){
+                            e.preventDefault();
+                            GMaps.geocode({
+                                address: $('#address').val().trim(),
+                                callback: function(results, status){
+                                    if(status=='OK'){
+                                        var latlng = results[0].geometry.location;
+                                        mymap.setCenter(latlng.lat(), latlng.lng());
+                                    }
+                                }
+                            });
                         });
                     });
 

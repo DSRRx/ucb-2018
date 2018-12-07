@@ -162,7 +162,7 @@
                             '<br>'+value.cantidad_p+
                             '<br><b>Foto de referencia:</b><br>' +
                             '<br><img width="200" height="100" src="./images/'+value.foto+'"><br>'+
-                            '<br><button type="submit" onclick="prueba('+value.id_parqueos+')" class="btn btn-info btn-sm">Registrar Visita</button>'
+                            '<br><button type="submit" onclick="prueba('+value.id_parqueos+')" class="btn btn-info btn-sm">Reservar</button>'
 
                 }
 

@@ -2,51 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\ReservaValidacion;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 
-class FacturaController extends Controller
+class ReservaValidacionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
-        //return view('factura.index',compact('parqueos'));
+
+        $locations = DB::table('parqueos')->get();
+        return view('cliente.busqueda_parqueo',compact('locations'));
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function showFactura($id)
-    {
-        //
-        $usuario = DB::table('users')
-                    ->select('*')
-                    ->where('id', Auth::id())
-                    ->get();
-
-        $reserva = DB::table('reservas')
-                    ->select('*')
-                    ->where('id_reservas', $id)
-                    ->get();
-
-        $parqueo = DB::table('parqueos')
-                    ->select('*')
-                    ->where('id_parqueos', $reserva[0]->id_parqueos)
-                    ->get();
-
-        return view('factura.index',compact('usuario','reserva','parqueo'));
-    }
-
 
     /**
      * Show the form for creating a new resource.
@@ -55,7 +26,18 @@ class FacturaController extends Controller
      */
     public function create()
     {
-        //
+        pq2 = DB::table('users')
+            ->select('*')
+            ->orderBy('id')
+            ->get();
+        $pq1 = DB::table('parqueos')
+            ->select('*')
+            ->orderBy('id_parqueos')
+            ->get();
+        $date = '==';
+        $reservas=\App\Reserva::paginate(10);
+        $reservas = \App\Reserva::orderBy('h_inicio_reserva')->get();
+        return view('reserva.historia',compact('reservas','pq2','pq1','date'));
     }
 
     /**
@@ -72,10 +54,10 @@ class FacturaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\ReservaValidacion  $reservaValidacion
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ReservaValidacion $reservaValidacion)
     {
         //
     }
@@ -83,10 +65,10 @@ class FacturaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\ReservaValidacion  $reservaValidacion
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ReservaValidacion $reservaValidacion)
     {
         //
     }
@@ -95,10 +77,10 @@ class FacturaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\ReservaValidacion  $reservaValidacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ReservaValidacion $reservaValidacion)
     {
         //
     }
@@ -106,10 +88,10 @@ class FacturaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\ReservaValidacion  $reservaValidacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ReservaValidacion $reservaValidacion)
     {
         //
     }
