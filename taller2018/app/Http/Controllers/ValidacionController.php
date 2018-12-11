@@ -16,7 +16,7 @@ class ValidacionController extends Controller
     public function index()
     {
         $locations = DB::table('parqueos')
-            ->where('estado_funcionamiento', 'LIKE', 'Invalido' || 'Observar')
+            ->where('estado_funcionamiento', 'LIKE', 'Observar' )
             ->get();
         $pq2 = DB::table('zonas')
             ->select('*')

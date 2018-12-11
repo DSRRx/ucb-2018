@@ -26,7 +26,7 @@ class ReservaValidacionController extends Controller
      */
     public function create()
     {
-        pq2 = DB::table('users')
+        $pq2 = DB::table('users')
             ->select('*')
             ->orderBy('id')
             ->get();
@@ -148,7 +148,7 @@ class ReservaValidacionController extends Controller
      * @param  \App\ReservaValidacion  $reservaValidacion
      * @return \Illuminate\Http\Response
      */
-    public function edit(ReservaValidacion $reservaValidacion)
+    public function edit($id)
     {
         $vh = Parqueo::find($id);
         $dias = DB::table('precios_alquiler')

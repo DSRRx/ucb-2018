@@ -28,68 +28,6 @@
                     </div>
                 </div>
 
-                <div class="row">
-
-                    <div class="col-md-4">
-
-                        <div class="modal fade" id="reservas" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
-
-                            <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
-                                <div class="modal-content">
-
-                                    <div class="modal-header">
-                                        <h6 class="modal-title" id="modal-title-default">Type your modal title</h6>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body ">
-                                        <form role="form">
-                                            <div class="form-group">
-
-                                                <label for="Direccion">Direccion:</label>
-                                                <input type="text" class="form-control" name="direccion" value="">
-
-                                                <label for="Cantidad">Cantidad Vehiculos:</label>
-                                                <input type="text" class="form-control" name="cantidad_p" value="">
-
-                                                <label for="HoraApertura">Hora Apertura:</label>
-                                                <input type="time" class="form-control" name="hora_apertura" value="">
-
-                                                <label for="HoraCierre">Hora Cierre:</label>
-                                                <input type="time" class="form-control" name="hora_cierre" value="">
-
-                                                <label for="Tarifa">Tarifa:</label>
-                                                <input type="text" class="form-control" name="tarifa_hora_normal" value="">
-
-                                                <div class="row">
-                                                    <div class="form-group col-md-12">
-                                                        <label for="Nacionalidad">Dias Funcionamiento Parqueo:</label>
-                                                        <label class="checkbox-inline"><input type="checkbox" value="">&nbsp;Lun</label>
-                                                        <label class="checkbox-inline"><input type="checkbox" value="">&nbsp;Mar</label>
-                                                        <label class="checkbox-inline"><input type="checkbox" value="">&nbsp;Mie</label>
-                                                        <label class="checkbox-inline"><input type="checkbox" value="">&nbsp;Jue</label>
-                                                        <label class="checkbox-inline"><input type="checkbox" value="">&nbsp;Vie</label>
-                                                        <label class="checkbox-inline"><input type="checkbox" value="">&nbsp;Sab</label>
-                                                        <label class="checkbox-inline"><input type="checkbox" value="">&nbsp;Dom</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="text-center">
-                                                <button type="button" class="btn btn-primary my-4">Reservar</button>
-                                                <button type="button" class="btn btn-warning my-4" data-dismiss="modal">Cerrar</button>
-                                            </div>
-                                        </form>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
                 @routes
                 <script type="text/javascript">
 
@@ -101,7 +39,7 @@
                         lng: -68.1193,
                         zoom:13
                     });
-                    var pinImage = new google.maps.MarkerImage("http://www.googlemapsmarkers.com/v1/009900/");
+                    var pinImage = new google.maps.MarkerImage("http://www.googlemapsmarkers.com/v1/0E2E9C/");
 
                     GMaps.geolocate({
                         success: function(position) {
@@ -209,26 +147,7 @@
                                     <td>{{$parqueo['observaciones_validacion']}}</td>
                                     <td><option>{{$parqueo['telefono_contacto_1']}}</option><option>{{$parqueo['telefono_contacto_2']}}</option></td>
 
-                                    <td>
-                                        @if($parqueo['estado_funcionamiento'] == 'Invalido')
-                                            Invalido
-                                        @else
-                                            @if($parqueo['estado_funcionamiento'] == '1')
-                                                Aprobado
-                                            @else
-                                                @if($parqueo['estado_funcionamiento'] == '2')
-                                                    Denegado
-                                                @else
-                                                    @if($parqueo['estado_funcionamiento'] == '3')
-                                                        Observar
-                                                    @endif
-                                                @endif
-
-                                            @endif
-
-                                        @endif
-
-                                    </td>
+                                    <td>{{$parqueo['estado_funcionamiento']}}</td>
 
                                     <td><a href="{{action('ValidacionController@edit', $parqueo['id_parqueos'])}}" class="btn btn-warning" )">Editar Validacion</a></td>
 
