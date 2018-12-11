@@ -105,9 +105,9 @@
                                     <label class="form-control-label" for="Estado">Estado Funcionamiento:</label>
 
                                     <select name="estado_funcionamiento" id="estado_funcionamiento" class="form-control" value ="{{$parqueo->estado_funcionamiento}}">
-                                        <option value="Aprobar">Aprobar</option>
-                                        <option value="Denegar">Denegar</option>
-                                        <option value="Observar">Observar</option>
+                                        <option value="Aprobado">Aprobar</option>
+                                        <option value="Denegado">Denegar</option>
+                                        <option value="Observacion">Observar</option>
                                     </select>
                                 </div>
                             </div>
