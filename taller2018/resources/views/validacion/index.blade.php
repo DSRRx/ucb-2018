@@ -42,6 +42,7 @@
 
                     var pinImage = new google.maps.MarkerImage("http://www.googlemapsmarkers.com/v1/FF5733/");
                     var pinImageO = new google.maps.MarkerImage("http://www.googlemapsmarkers.com/v1/FFC300/");
+                    var pinImage1 = new google.maps.MarkerImage("http://www.googlemapsmarkers.com/v1/4da6ff/");
 
                     GMaps.geolocate({
                         success: function(position) {
@@ -81,30 +82,47 @@
                                         '<br><b>Foto de referencia:</b><br>' +
                                         '<br><img width="200" height="100" src="./images/'+value.foto+'"><br>'+
                                         '<br><button type="submit" onclick="prueba('+value.id_parqueos+')" class="btn btn-info btn-sm">Reservar Visita</button><button type="submit" onclick="pruebab('+value.id_parqueos+')" class="btn btn-info btn-sm">Editar Validacion</button>'
-
                                 }
-
                             });
                         }else{
-                            mymap.addMarker({
-                                icon : pinImage,
-                                scale : 6,
-                                lat: value.latitud_x,
-                                lng: value.longitud_y,
-                                title: value.direccion,
-                                infoWindow: {
-                                    content:
-                                        '<b>Direccion: </b>'+
-                                        '<br>'+value.direccion+
-                                        '<br><b>Espacios del parqueo:</b>'+
-                                        '<br>'+value.cantidad_p+
-                                        '<br><b>Foto de referencia:</b><br>' +
-                                        '<br><img width="200" height="100" src="./images/'+value.foto+'"><br>'+
-                                        '<br><button type="submit" onclick="prueba('+value.id_parqueos+')" class="btn btn-info btn-sm">Reservar Visita</button><button type="submit" onclick="pruebab('+value.id_parqueos+')" class="btn btn-info btn-sm">Editar Validacion</button>'
-
-                                }
-
-                            });
+                            if(value.estado_funcionamiento == 'Inactivo')
+                            {
+                                mymap.addMarker({
+                                    icon : pinImage,
+                                    scale : 6,
+                                    lat: value.latitud_x,
+                                    lng: value.longitud_y,
+                                    title: value.direccion,
+                                    infoWindow: {
+                                        content:
+                                            '<b>Direccion: </b>'+
+                                            '<br>'+value.direccion+
+                                            '<br><b>Espacios del parqueo:</b>'+
+                                            '<br>'+value.cantidad_p+
+                                            '<br><b>Foto de referencia:</b><br>' +
+                                            '<br><img width="200" height="100" src="./images/'+value.foto+'"><br>'+
+                                            '<br><button type="submit" onclick="prueba('+value.id_parqueos+')" class="btn btn-info btn-sm">Reservar Visita</button><button type="submit" onclick="pruebab('+value.id_parqueos+')" class="btn btn-info btn-sm">Editar Validacion</button>'
+                                    }
+                                });
+                            }else{
+                                mymap.addMarker({
+                                    icon : pinImage1,
+                                    scale : 6,
+                                    lat: value.latitud_x,
+                                    lng: value.longitud_y,
+                                    title: value.direccion,
+                                    infoWindow: {
+                                        content:
+                                            '<b>Direccion: </b>'+
+                                            '<br>'+value.direccion+
+                                            '<br><b>Espacios del parqueo:</b>'+
+                                            '<br>'+value.cantidad_p+
+                                            '<br><b>Foto de referencia:</b><br>' +
+                                            '<br><img width="200" height="100" src="./images/'+value.foto+'"><br>'+
+                                            '<br><button type="submit" onclick="pruebab('+value.id_parqueos+')" class="btn btn-info btn-sm">Editar Validacion</button>'
+                                    }
+                                });
+                            }
                         }
 
                     });

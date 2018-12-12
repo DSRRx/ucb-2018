@@ -18,6 +18,7 @@ class ValidacionController extends Controller
         $locations = DB::table('parqueos')
             ->where('estado_funcionamiento', 'LIKE', 'Inactivo')
             ->orWhere('estado_funcionamiento', 'LIKE', 'Observacion' )
+            ->orWhere('estado_funcionamiento', 'LIKE', 'Visita' )
             ->get();
         $pq2 = DB::table('zonas')
             ->select('*')

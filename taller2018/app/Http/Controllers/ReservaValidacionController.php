@@ -72,6 +72,10 @@ class ReservaValidacionController extends Controller
             ->where('id_parqueos', $v->id_parqueos)
             ->get();
 
+        $p= \App\Parqueo::find($v->id_parqueos);
+        $p->estado_funcionamiento = 'Visita';
+
+
         //ifs que determinan la validez de las horas dadas
         if(strtotime($v->hora_visita) < strtotime($parqueo[0]->hora_apertura)){
             echo '<script type="text/javascript">
@@ -114,7 +118,7 @@ class ReservaValidacionController extends Controller
 
         if($gg==0){
             $v->save();
-
+            $p->save();
             return redirect('validacion')->with('success','La visita fue añadida');
         }else{
             return $this->edit($v->id_parqueos);
