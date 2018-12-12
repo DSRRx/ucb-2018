@@ -8,13 +8,11 @@ Auth::routes ();
     Route::resource('parqueo_admin','ParqueoAdminController',['middleware' => ['auth', 'admin']]);
     Route::resource('denuncia','DenunciaController',['middleware' => ['auth', 'admin', 'user']]);
     Route::resource('validacion','ValidacionController')->middleware('auth');
-    Route::get('/reservasv/store/{id}',[
+    Route::resource('reserva_validacions','ReservaValidacionController')->middleware('auth');
+    Route::get('/reserva_validacions/store/{id}',[
         'uses' => 'ReservaValidacionController@store',
         'as' => 'testa.route'
-    ], ['middleware'=>['auth', 'user']]);
-
-    Route::resource('reservasv','ReservaValidacionController', ['middleware' => ['auth', 'user']]);
-
+    ], ['middleware'=>['auth', 'user','admin']]);
 
 // Rutas de CLIENTE O USUARIO;
     Route::resource('/','ClienteController', ['middleware'=>['auth', 'user']]);

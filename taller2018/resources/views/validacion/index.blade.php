@@ -76,9 +76,11 @@
                                         '<br>'+value.direccion+
                                         '<br><b>Espacios del parqueo:</b>'+
                                         '<br>'+value.cantidad_p+
+                                        '<br><b>Estado de Funcionamiento:</b>'+
+                                        '<br>'+value.estado_funcionamiento+
                                         '<br><b>Foto de referencia:</b><br>' +
                                         '<br><img width="200" height="100" src="./images/'+value.foto+'"><br>'+
-                                        '<br><button type="submit" onclick="prueba('+value.id_parqueos+')" class="btn btn-info btn-sm">Reservar Visita</button>'
+                                        '<br><button type="submit" onclick="prueba('+value.id_parqueos+')" class="btn btn-info btn-sm">Reservar Visita</button><button type="submit" onclick="pruebab('+value.id_parqueos+')" class="btn btn-info btn-sm">Editar Validacion</button>'
 
                                 }
 
@@ -98,7 +100,7 @@
                                         '<br>'+value.cantidad_p+
                                         '<br><b>Foto de referencia:</b><br>' +
                                         '<br><img width="200" height="100" src="./images/'+value.foto+'"><br>'+
-                                        '<br><button type="submit" onclick="prueba('+value.id_parqueos+')" class="btn btn-info btn-sm">Reservar Visita</button>'
+                                        '<br><button type="submit" onclick="prueba('+value.id_parqueos+')" class="btn btn-info btn-sm">Reservar Visita</button><button type="submit" onclick="pruebab('+value.id_parqueos+')" class="btn btn-info btn-sm">Editar Validacion</button>'
 
                                 }
 
@@ -109,7 +111,14 @@
 
                     function prueba($id){
                         var id = $id;
-                        var prueba_r= '{{ route('reservas.edit', ":id") }}';
+                        var prueba_r= '{{ route('reserva_validacions.edit', ":id") }}';
+                        prueba_r = prueba_r.replace(':id', $id);
+                        document.location.href=prueba_r;
+                    }
+
+                    function pruebab($id){
+                        var id = $id;
+                        var prueba_r= '{{ route('validacion.edit', ":id") }}';
                         prueba_r = prueba_r.replace(':id', $id);
                         document.location.href=prueba_r;
                     }
@@ -158,7 +167,7 @@
                                 <th>Observaciones</th>
                                 <th>Contacto</th>
                                 <th>Estado</th>
-                                <th colspan="1">Action</th>
+                                <!--  <th colspan="1">Action</th>  -->
                             </tr>
                         </thead>
                         <tbody>
@@ -175,7 +184,7 @@
 
                                     <td>{{$parqueo['estado_funcionamiento']}}</td>
 
-                                    <td><a href="{{action('ValidacionController@edit', $parqueo['id_parqueos'])}}" class="btn btn-warning" )">Editar Validacion</a></td>
+                                    <!-- <td><a href="{{action('ValidacionController@edit', $parqueo['id_parqueos'])}}" class="btn btn-warning" )">Editar Validacion</a></td> -->
 
                                 </tr>
                                 @endif

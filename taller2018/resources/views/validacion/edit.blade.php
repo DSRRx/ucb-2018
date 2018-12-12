@@ -98,7 +98,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" for="Imagen">Imagen Validacion:</label>
-                                    <input type="file" accept="image/*" name="filename">
+                                    <br><input type="file" accept="image/*" name="filename">
                                 </div>
 
                                 <div class="form-group col-md-6">

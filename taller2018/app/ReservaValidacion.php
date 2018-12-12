@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReservaValidacion extends Model
 {
-    protected $primaryKey = 'id_reservas';
+    protected $primaryKey = 'id_notificaciones';
 
     protected $fillable=[
-        'id_usuarios',
-        'id_precios_alquiler',
+        'id_users',
+        'id_parqueos',
         'inicio_reserva',
-        'fin_reserva',
-        'estado_reserva',
-        'estado_espacio',
-        'calificacion_cliente',
-        'calificacion_anfitrion'
+        'dia_visita',
+        'hora_visita',
+        'tipo_notificacion',
+        'descripcion_notificacion',
+        'estado_reserva_visita'
     ];
 }

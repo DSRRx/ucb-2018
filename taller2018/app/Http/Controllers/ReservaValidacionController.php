@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Parqueo;
+
 use App\ReservaValidacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReservaValidacionController extends Controller
 {
@@ -35,8 +38,8 @@ class ReservaValidacionController extends Controller
             ->orderBy('id_parqueos')
             ->get();
         $date = '==';
-        $reservas=\App\Reserva::paginate(10);
-        $reservas = \App\Reserva::orderBy('h_inicio_reserva')->get();
+        $reservas=\App\ReservaValidacion::paginate(10);
+        $reservas = \App\ReservaValidacion::orderBy('h_inicio_reserva')->get();
         return view('reserva.historia',compact('reservas','pq2','pq1','date'));
     }
 
@@ -53,17 +56,18 @@ class ReservaValidacionController extends Controller
         date_default_timezone_set('America/La_Paz');
         $fecha=date("Y-m-d");
         $this->validate($request,[
-            'hora_inicio'=>'required',
-            'hora_fin'=>'required'
+            'hora_visita'=>'required'
         ]);
         //dd($request->input('id_parqueos'));
         //$request->input('id_parqueos');
-        $v = new Reserva();
+        $v = new ReservaValidacion();
         $v->id_user= $cliente;
         $v->id_parqueos= $request->input('id_parqueos');
-        $v->dia_reserva = $request->input('dia_reserva');
-        $v->h_inicio_reserva = $request->input('hora_inicio');
-        $v->h_fin_reserva=$request->input('hora_fin');
+        $v->dia_visita = $request->input('dia_visita');
+        $v->hora_visita = $request->input('hora_visita');
+        $v->tipo_notificacion=$request->input('tipo_notificacion');
+        $v->descripcion_notificacion=$request->input('descripcion_notifiacion');
+        $v->estado_reserva_visita=$request->input('estado_reserva_visita');
         //
         $parqueo = DB::table('parqueos')
             ->select('*')
@@ -71,22 +75,22 @@ class ReservaValidacionController extends Controller
             ->get();
 
         //ifs que determinan la validez de las horas dadas
-        if(strtotime($v->h_inicio_reserva) < strtotime($parqueo[0]->hora_apertura)){
+        if(strtotime($v->hora_visita) < strtotime($parqueo[0]->hora_apertura)){
             echo '<script type="text/javascript">
-                            alert("El parqueo abre a las: '.$parqueo[0]->hora_apertura.' cambie la hora de inicio de reserva e intente de nuevo");
+                            alert("El parqueo abre a las: '.$parqueo[0]->hora_apertura.' cambie la hora de visita e intente de nuevo");
                             </script>';
             $gg=1;
         }
-        if(strtotime($v->h_fin_reserva) > strtotime($parqueo[0]->hora_cierre)){
+        if(strtotime($v->hora_visita) > strtotime($parqueo[0]->hora_cierre)){
             echo '<script type="text/javascript">
-                            alert("El parqueo cierra a las: '.$parqueo[0]->hora_cierre.' cambie la hora de fin de reserva e intente de nuevo");
+                            alert("El parqueo cierra a las: '.$parqueo[0]->hora_cierre.' cambie la hora de visita e intente de nuevo");
                             </script>';
             $gg=1;
         }
         date_default_timezone_set('America/La_Paz');
-        if($v->dia_reserva == date("Y-m-d") && strtotime($v->h_inicio_reserva) < strtotime(date("H:i"))){
+        if($v->dia_reserva == date("Y-m-d") && strtotime($v->hora_visita) < strtotime(date("H:i"))){
             echo '<script type="text/javascript">
-                            alert("Ya son mas de las: '.$v->h_inicio_reserva.' cambie la hora de inicio de reserva e intente de nuevo");
+                            alert("Ya son mas de las: '.$v->hora_visita.' cambie la hora de inicio de reserva e intente de nuevo");
                             </script>';
             $gg=1;
         }
@@ -102,33 +106,22 @@ class ReservaValidacionController extends Controller
         //echo date('D', strtotime($v->dia_reserva));
         foreach($dias_habiles as $dias){
             //echo $dias->id_dias;
-            if($hoje[$dias->id_dias-1] == date('D', strtotime($v->dia_reserva))){
+            if($hoje[$dias->id_dias-1] == date('D', strtotime($v->dia_visita))){
                 echo '<script type="text/javascript">
-                            alert("El parqueo no funciona el dia '.$v->dia_reserva.' cambie la fecha de reserva e intente de nuevo");
+                            alert("El parqueo no funciona el dia '.$v->dia_visita.' cambie la fecha de reserva e intente de nuevo");
                             </script>';
                 $gg=1;
             }
         }
 
-        //condicional para ver si ya no hay espacios disponibles
-        if($parqueo[0]->cantidad_actual == 0){
-            echo '<script type="text/javascript">
-                            alert("El parqueo se encuentra lleno.");
-                            </script>';
-            $gg=1;
-        }
-
-        //condicional para ver si es success o fail
         if($gg==0){
             $v->save();
-            //actualizar cantidad espacios disponibles parqueo
-            DB::table('parqueos')
-                ->where('id_parqueos', $v->id_parqueos)
-                ->update(['cantidad_actual'=>$parqueo[0]->cantidad_actual-1]);
-            return redirect('reservas')->with('success','Reserva Exitosa');
+
+            return redirect('validacion')->with('success','La visita fue añadida');
         }else{
             return $this->edit($v->id_parqueos);
         }
+
     }
 
     /**
@@ -157,8 +150,13 @@ class ReservaValidacionController extends Controller
             ->where('id_parqueos', $id)
             ->where('estado', true)
             ->get();
+        $d2 = DB::table('users')
+            ->select('*')
+            ->where('id', $id)
+            ->orderBy('id')
+            ->get();
 
-        return view('cliente.reserva_parqueo',compact('vh', 'dias'));
+        return view('validacion.reserva_validacion',compact('vh', 'dias','d2'));
     }
 
     /**
