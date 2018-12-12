@@ -66,9 +66,7 @@ class ReservaValidacionController extends Controller
         $v->dia_visita = $request->input('dia_visita');
         $v->hora_visita = $request->input('hora_visita');
         $v->tipo_notificacion=$request->input('tipo_notificacion');
-        $v->descripcion_notificacion=$request->input('descripcion_notifiacion');
-        $v->estado_reserva_visita=$request->input('estado_reserva_visita');
-        //
+
         $parqueo = DB::table('parqueos')
             ->select('*')
             ->where('id_parqueos', $v->id_parqueos)
@@ -166,7 +164,7 @@ class ReservaValidacionController extends Controller
      * @param  \App\ReservaValidacion  $reservaValidacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ReservaValidacion $reservaValidacion)
+    public function update(Request $request)
     {
         $cliente = auth()->user()->id;
         date_default_timezone_set('America/La_Paz');
@@ -207,7 +205,7 @@ class ReservaValidacionController extends Controller
     public function lista_estado(){
 
 
-        $l = DB::table('reservas')
+        $l = DB::table('reserva')
             ->join('users','users.id','=','reservas.id_user')
             ->join('parqueos','parqueos.id_parqueos','=','reservas.id_parqueos')
             ->orderBy('id_reservas','desc')

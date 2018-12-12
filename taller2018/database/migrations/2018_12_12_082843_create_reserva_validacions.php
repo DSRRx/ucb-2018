@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNotificaciones extends Migration
+class CreateReservaValidacions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateNotificaciones extends Migration
      */
     public function up()
     {
-        Schema::create('notificaciones', function (Blueprint $table) {
-            $table->increments('id_notificaciones');
+        Schema::create('reserva_validacions', function (Blueprint $table) {
+            $table->increments('id_reserva_validacions');
             $table->unsignedInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('id_parqueos');
@@ -35,6 +35,6 @@ class CreateNotificaciones extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notificaciones');
+        Schema::dropIfExists('reserva_validacions');
     }
 }

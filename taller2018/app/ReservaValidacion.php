@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReservaValidacion extends Model
 {
-    protected $primaryKey = 'id_notificaciones';
+    protected $primaryKey = 'id_reserva_validacions';
 
     protected $fillable=[
         'id_users',
