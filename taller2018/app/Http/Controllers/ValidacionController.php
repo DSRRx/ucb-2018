@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Validacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ValidacionController extends Controller
@@ -24,13 +25,19 @@ class ValidacionController extends Controller
             ->select('*')
             ->orderBy('id_zonas')
             ->get();
-        $usu = auth()->user()->id;
+       // $usu = auth()->user()->id;
 
         $pq3 = DB::table('reserva_validacions')
             ->select('*')
-            //->where('id_user', $usu)
+            ->where('id_user', Auth::id())
             ->orderBy('id_reserva_validacions')
             ->get();
+
+        $usu = DB::table('users')
+            ->select('*')
+            ->join('reserva_validacions', 'reserva_validacions.id_user', '=', 'users.id')
+            ->get();
+
         $parqueos=\App\Parqueo::paginate(10);
         //$parqueos = \App\Parqueo::where('id_users',Auth::id())->orderBy('id_parqueos')->get();
         return view('validacion.index',compact('parqueos','pq2','locations','pq3','usu'));
