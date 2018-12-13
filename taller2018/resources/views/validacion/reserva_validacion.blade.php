@@ -91,12 +91,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-md-12">
-                                    <label class="form-control-label" for="tipo_notificacion">Tipo Notificacion:</label>
-                                    <input type="text" class="form-control form-control-alternative" name="tipo_notificacion" id="tipo_notificacion" >
-                                </div>
-                            </div>
+
+                            <input type="text" class="form-control form-control-alternative" name="tipo_notificacion" id="tipo_notificacion" value="Visita" readonly hidden>
+
+                            <input type="text" class="form-control form-control-alternative" name="descripcion_notificacion" id="descripcion_notificacion" value="Visita prevista para validar el funcionamiento y estado del parqueo" readonly hidden>
+
                             <hr class="my-4" />
 
                             <div class="row">

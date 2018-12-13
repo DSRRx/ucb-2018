@@ -22,11 +22,16 @@ class NotificacionController extends Controller
             ->orderBy('id_parqueos')
             ->get();
 
+        $zona = DB::table('zonas')
+            ->select('*')
+            ->orderBy('id_zonas')
+            ->get();
+
         $reserva_validacions=\App\ReservaValidacion::paginate(10);
         $reserva_validacions = \App\ReservaValidacion::orderBy('id_reserva_validacions')->get();
 
 
-        return view('notificacion.index',compact('reserva_validacions','parqueos'));
+        return view('notificacion.index',compact('reserva_validacions','parqueos','zona'));
     }
 
     /**

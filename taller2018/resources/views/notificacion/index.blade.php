@@ -35,9 +35,14 @@
                             @foreach($reserva_validacions as $reserva_validacions)
                             <tr>
                                 <td>
-                                    @foreach($parqueos as $p1)
-                                    @if($p1->id_parqueos == $reserva_validacions->id_parqueos){{$reserva_validacions['id_parqueos']}}@endif
+                                    @foreach($zona as $p)
+                                        @foreach($parqueos as $p1)
+                                            @if(($p1->id_parqueos == $reserva_validacions->id_parqueos)&&($p->id_zonas == $p1->id_zonas))
+                                                {{$p1->direccion}} - {{$p->zona}}
+                                            @endif
+                                        @endforeach
                                     @endforeach
+
                                 </td>
                                 <td>
                                     @foreach($parqueos as $p1)

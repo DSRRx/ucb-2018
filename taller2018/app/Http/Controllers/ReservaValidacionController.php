@@ -66,6 +66,7 @@ class ReservaValidacionController extends Controller
         $v->dia_visita = $request->input('dia_visita');
         $v->hora_visita = $request->input('hora_visita');
         $v->tipo_notificacion=$request->input('tipo_notificacion');
+        $v->descripcion_notificacion=$request->input('descripcion_notificacion');
 
         $parqueo = DB::table('parqueos')
             ->select('*')
