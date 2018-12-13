@@ -8,6 +8,7 @@ Auth::routes ();
     Route::resource('parqueo_admin','ParqueoAdminController',['middleware' => ['auth', 'admin']]);
     Route::resource('denuncia','DenunciaController',['middleware' => ['auth', 'admin', 'user']]);
     Route::resource('validacion','ValidacionController')->middleware('auth');
+    Route::resource('notificacion','NotificacionController')->middleware('auth');
     Route::resource('reserva_validacions','ReservaValidacionController')->middleware('auth');
     Route::get('/reserva_validacions/store/{id}',[
         'uses' => 'ReservaValidacionController@store',

@@ -24,9 +24,16 @@ class ValidacionController extends Controller
             ->select('*')
             ->orderBy('id_zonas')
             ->get();
+        $usu = auth()->user()->id;
+
+        $pq3 = DB::table('reserva_validacions')
+
+            ->where('id_user','=', $usu)
+            ->orderBy('id_reserva_validacions')
+            ->get();
         $parqueos=\App\Parqueo::paginate(10);
         //$parqueos = \App\Parqueo::where('id_users',Auth::id())->orderBy('id_parqueos')->get();
-        return view('validacion.index',compact('parqueos','pq2','locations'));
+        return view('validacion.index',compact('parqueos','pq2','locations','pq3','usu'));
 
     }
 
@@ -91,7 +98,7 @@ class ValidacionController extends Controller
 
         $d2 = DB::table('users')
             ->select('*')
-            ->where('id', $id)
+            ->where('id', $parqueo->id_users)
             ->orderBy('id')
             ->get();
 

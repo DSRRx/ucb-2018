@@ -44,7 +44,16 @@ class UsersTableSeeder extends Seeder
             'email_verified_at'=> now(),
             'password' => Hash::make('111111'),
             'remember_token' => str_random(10),
-          ]
+          ],
+          [
+          'id' => '4',
+            'sur_name' => 'Sebastian',
+            'last_name'=> 'Rocha',
+            'email' => 'diego_capricornio_2r@hotmail.com',
+            'email_verified_at'=> now(),
+            'password' => Hash::make('111111'),
+            'remember_token' => str_random(10),
+        ]
         ]);
     }
 }

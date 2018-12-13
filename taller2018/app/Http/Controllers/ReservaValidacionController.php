@@ -154,7 +154,7 @@ class ReservaValidacionController extends Controller
             ->get();
         $d2 = DB::table('users')
             ->select('*')
-            ->where('id', $id)
+            ->where('id', $vh->id_users)
             ->orderBy('id')
             ->get();
 

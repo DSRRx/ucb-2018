@@ -21,19 +21,19 @@ class Users_RolesTableSeeder extends Seeder
             [
                 'id'=>'2',
                 'id_role'=>'2',//User
-                'id_user'=>'1',//Cinthia
+                'id_user'=>'1',//Diego
                 'created_at'=>today(),
             ],
             [
                 'id'=>'3',
                 'id_role'=>'3',//Owner
-                'id_user'=>'1',//Juani
+                'id_user'=>'1',//Diego
                 'created_at'=>today(),
             ],
             [
                 'id'=>'4',
                 'id_role'=>'2',//Owner
-                'id_user'=>'2',//Juani
+                'id_user'=>'2',//Cinthia
                 'created_at'=>today(),
             ],
             [
@@ -46,6 +46,24 @@ class Users_RolesTableSeeder extends Seeder
                 'id'=>'6',
                 'id_role'=>'3',//Owner
                 'id_user'=>'3',//Juani
+                'created_at'=>today(),
+            ],
+            [
+                'id'=>'7',
+                'id_role'=>'1',//Admin
+                'id_user'=>'4',//Sebastian
+                'created_at'=>today(),
+            ],
+            [
+                'id'=>'8',
+                'id_role'=>'2',//Admin
+                'id_user'=>'4',//Sebastian
+                'created_at'=>today(),
+            ],
+            [
+                'id'=>'9',
+                'id_role'=>'3',//Admin
+                'id_user'=>'4',//Sebastian
                 'created_at'=>today(),
             ]
         ]);
