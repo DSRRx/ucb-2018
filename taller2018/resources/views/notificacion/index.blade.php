@@ -34,11 +34,32 @@
                             <tbody>
                             @foreach($reserva_validacions as $reserva_validacions)
                             <tr>
-                                <td>{{$reserva_validacions['id_parqueos']}}</td>
-                                <td>{{$reserva_validacions ['tipo_notificacion']}}</td>
-                                <td>{{$reserva_validacions ['descripcion_notificacion']}}</td>
-                                <td>{{$reserva_validacions ['dia_visita']}}</td>
-                                <td>{{$reserva_validacions ['hora_visita']}}</td>
+                                <td>
+                                    @foreach($parqueos as $p1)
+                                    @if($p1->id_parqueos == $reserva_validacions->id_parqueos){{$reserva_validacions['id_parqueos']}}@endif
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach($parqueos as $p1)
+                                    @if($p1->id_parqueos == $reserva_validacions->id_parqueos){{$reserva_validacions ['tipo_notificacion']}}@endif
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach($parqueos as $p1)
+                                    @if($p1->id_parqueos == $reserva_validacions->id_parqueos){{$reserva_validacions ['descripcion_notificacion']}}@endif
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach($parqueos as $p1)
+                                    @if($p1->id_parqueos == $reserva_validacions->id_parqueos){{$reserva_validacions ['dia_visita']}}@endif
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach($parqueos as $p1)
+                                    @if($p1->id_parqueos == $reserva_validacions->id_parqueos){{$reserva_validacions ['hora_visita']}}@endif
+                                    @endforeach
+                                </td>
+
 
                             </tr>
                             @endforeach
