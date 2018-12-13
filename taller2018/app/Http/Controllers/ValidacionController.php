@@ -27,8 +27,8 @@ class ValidacionController extends Controller
         $usu = auth()->user()->id;
 
         $pq3 = DB::table('reserva_validacions')
-
-            ->where('id_user','=', $usu)
+            ->select('*')
+            //->where('id_user', $usu)
             ->orderBy('id_reserva_validacions')
             ->get();
         $parqueos=\App\Parqueo::paginate(10);

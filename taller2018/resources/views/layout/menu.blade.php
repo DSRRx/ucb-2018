@@ -66,6 +66,12 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ url('reservaValidacion') }}">
+                        <i class="ni ni-calendar-grid-58"></i> Visitas validacion
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" href="{{ url('roles') }}">
                         <i class="ni ni-circle-08 text-black"></i> Roles
                     </a>
@@ -151,6 +157,13 @@
                         <i class="ni ni-single-02"></i> Reservas
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('notificacion') }}">
+                        <i class="ni ni-bell-55"></i> Notificaciones
+                    </a>
+                </li>
+
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"

@@ -6,7 +6,9 @@ use App\Parqueo;
 
 use App\ReservaValidacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ReservaValidacionController extends Controller
 {
@@ -18,8 +20,21 @@ class ReservaValidacionController extends Controller
     public function index()
     {
 
-        $locations = DB::table('parqueos')->get();
-        return view('cliente.busqueda_parqueo',compact('locations'));
+        $parqueos = DB::table('parqueos')
+            ->select('*')
+            ->orderBy('id_parqueos')
+            ->get();
+
+        $zona = DB::table('zonas')
+            ->select('*')
+            ->orderBy('id_zonas')
+            ->get();
+
+        $reserva_validacions=\App\ReservaValidacion::paginate(10);
+        $reserva_validacions = \App\ReservaValidacion::where('id_user',Auth::id())->orderBy('id_reserva_validacions')->get();
+
+
+        return view('reservaValidacion.index',compact('reserva_validacions','parqueos','zona'));
     }
 
     /**
@@ -133,9 +148,23 @@ class ReservaValidacionController extends Controller
      * @param  \App\ReservaValidacion  $reservaValidacion
      * @return \Illuminate\Http\Response
      */
-    public function show(ReservaValidacion $reservaValidacion)
+    public function show($id)
     {
-        //
+
+        $vh2 = \App\ReservaValidacion::find($id);
+
+        $d2 = DB::table('users')
+            ->select('*')
+
+            ->orderBy('id')
+            ->get();
+        $vh = DB::table('parqueos')
+            ->select('*')
+
+            ->orderBy('id_parqueos')
+            ->get();
+
+        return view('reservaValidacion.edit',compact('vh', 'd2','vh2'));
     }
 
     /**
@@ -159,7 +188,7 @@ class ReservaValidacionController extends Controller
             ->orderBy('id')
             ->get();
 
-        return view('validacion.reserva_validacion',compact('vh', 'dias','d2'));
+        return view('reservaValidacion.reserva_validacion',compact('vh', 'dias','d2'));
     }
 
     /**
@@ -169,29 +198,20 @@ class ReservaValidacionController extends Controller
      * @param  \App\ReservaValidacion  $reservaValidacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $cliente = auth()->user()->id;
-        date_default_timezone_set('America/La_Paz');
-        $fecha=date("Y-m-d");
-        $this->validate($request,[
-            'hora_inicio'=>'required',
-            'hora_fin'=>'required'
-        ]);
-        //dd($request->input('id_parqueos'));
-        $request->input('id_parqueos');
-        $v = new Reserva();
-        $v->id_user= $cliente;
-        $v->id_parqueos= 1;
-        $v->dia_reserva = $fecha;
-        $v->h_inicio_reserva = $request->input('hora_inicio');
-        $v->h_fin_reserva=$request->input('hora_fin');
-        $v->estado_reserva = 1;
-        $v->estado_espacio = 1;
+
+        $v = ReservaValidacion::find($id);
+        $v->id_user= $request->input('id_user');
+        $v->id_parqueos= $request->input('id_parqueos');
+        $v->dia_visita = $request->input('dia_visita');
+        $v->hora_visita = $request->input('hora_visita');
+        $v->tipo_notificacion=$request->input('tipo_notificacion');
+        $v->descripcion_notificacion=$request->input('descripcion_notificacion');
+        $v->estado_reserva_visita= $request->input('estado_reserva_visita');
         $v->save();
+        return redirect()->action('ReservaValidacionController@index')->with('success','La visita fue modificada');
 
-
-        return redirect('reservas')->with('success','Reserva Exitosa');
     }
 
     /**
